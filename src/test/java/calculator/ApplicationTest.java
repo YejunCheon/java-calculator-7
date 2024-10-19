@@ -42,7 +42,7 @@ class ApplicationTest extends NsTest {
     void 혼합된_구분자_테스트() {
         assertSimpleTest(() -> {
             run("//#\\n1#5,5,3");
-            assertThat(output()).contains("결과 : 11");
+            assertThat(output()).contains("결과 : 14");
         });
     }
 
