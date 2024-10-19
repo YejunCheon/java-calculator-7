@@ -14,6 +14,6 @@ public class Calculator {
     public long add(String s){
         String formula = parser.saveDelimiterAndReturnFormula(s);
         long[] operands = parser.parseFormula(formula);
-        return operationExecutor.add(operands);
+        return operationExecutor.addAll(operands);
     }
 }
