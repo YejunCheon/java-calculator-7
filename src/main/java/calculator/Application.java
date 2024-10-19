@@ -11,7 +11,8 @@ public class Application {
 
         // 계산
         Parser basicParser = new Parser(",|:");
-        Calculator addCalc = new Calculator(basicParser);
+        OperationExecutor operationExecutor = new OperationExecutor();
+        Calculator addCalc = new Calculator(basicParser, operationExecutor);
 
         long ans = addCalc.add(line);
 

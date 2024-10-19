@@ -4,22 +4,16 @@ package calculator;
 public class Calculator {
 
     private Parser parser;
+    private OperationExecutor operationExecutor;
 
-    public Calculator(Parser parser) {
+    public Calculator(Parser parser, OperationExecutor operationExecutor) {
         this.parser = parser;
+        this.operationExecutor = operationExecutor;
     }
 
     public long add(String s){
-        long sum = 0;
         String formula = parser.saveDelimiterAndReturnFormula(s);
-        long[] tokens = parser.parseFormula(formula);
-
-        for (long number : tokens) {
-            if (number < 0) {
-                throw new IllegalArgumentException("음수는 입력할 수 없습니다: " + number);
-            }
-            sum += number;
-        }
-        return sum;
+        long[] operands = parser.parseFormula(formula);
+        return operationExecutor.add(operands);
     }
 }
