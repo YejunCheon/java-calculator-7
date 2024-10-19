@@ -14,15 +14,22 @@ public class Parser {
     }
 
     public long[] parseFormula(String formula) {
-        String[] tokens;
+        if (formula == null || formula.isEmpty())
+            return new long[]{0};
+        if ( formula.matches(".*" + delimiterRegex + "$") )
+            throw new IllegalArgumentException("마지막 피연산자가 입력되지 않았습니다.");
+        if ( formula.matches( delimiterRegex + delimiterRegex) )
+            throw new IllegalArgumentException("구분자와 구분자 사이에 피연산자가 존재하지 않습니다.");
         try {
-            tokens = formula.split(delimiterRegex);
+            String[] tokens = formula.split(delimiterRegex);
+            return Arrays.stream(tokens)
+                    .mapToLong(Long::parseLong)
+                    .toArray();
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자가 아닌 피연산자가 입력되었습니다.");
         } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException("파싱 중 오류가 발생하였습니다.",e);
         }
-        return Arrays.stream(tokens)
-                .mapToLong(Long::parseLong)
-                .toArray();
     }
 
     public String saveDelimiterAndReturnFormula(String line) {
