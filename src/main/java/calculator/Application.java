@@ -10,9 +10,9 @@ public class Application {
         String line = Console.readLine();
 
         // 계산
-        Parser basicParser = new Parser(",|:");
-        OperationExecutor operationExecutor = new OperationExecutor();
-        Calculator addCalc = new Calculator(basicParser, operationExecutor);
+        Parser parser = new DelimiterParser(",|:");
+        OperationExecutor operationExecutor = new PositiveNumberOperationExecutor();
+        Calculator addCalc = new Calculator(parser, operationExecutor);
 
         long ans = addCalc.add(line);
 
